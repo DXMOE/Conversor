@@ -6,13 +6,13 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Conversor Infijo a Posfijo</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <style>
             body{
-                background: black;
+                background: white;
             }
 
             .section {
@@ -32,6 +32,7 @@ and open the template in the editor.
                     var listaEntrada = expresion.value.toString().split(' ').reverse();
                     var pila = new Array();
                     var listaSalida = '';
+                    var contador = 0;
 
                     var error = false;
                     while (!error && listaEntrada.length > 0) {
@@ -41,13 +42,22 @@ and open the template in the editor.
                         if (!isNaN(numero)) {
                             listaSalida += numero + ' ';
                         }
-                        // Caso cuando el termino es una VARIABLE
+                        // Caso cuando el termino es una variable
                         if (esVariable(termino)) {
                             listaSalida += termino + ' ';
                         }
-                        // Caso cuando el termino es una VARIABLE
+                        // Caso cuando el termino es un parentesis
                         if (termino === '(') {
-                            pila.push(termino);
+                            if(listaEntrada.lenght > 0){
+                                termino = listaEntrada.pop();
+                                while (listaEntrada.lenght>0 && termino != '('){
+                                    termino = listaEntrada.pop();
+                                }
+                            }
+                        }
+                        // Caso cuando el termino es un operador
+                        if (esOperador(termino)) {
+                            listaSalida += termino + ' ';
                         }
                     }
                     console.log(listaSalida);
@@ -61,12 +71,11 @@ and open the template in the editor.
                 function esOperador(termino) {
                     switch (termino) {
                         case '+':
-                        case '*':
+                        case '*':  
                         case '-':
-                        case '/':
+                        case '/':    
                         case '^':
                             return true;
-
                         default:
                             return false;
                     }
