@@ -47,11 +47,11 @@ and open the template in the editor.
                             listaSalida += termino + ' ';
                         }
                         // Caso cuando el termino es un parentesis
-                        if (termino === '(') {
-                            if(listaEntrada.lenght > 0){
-                                termino = listaEntrada.pop();
-                                while (listaEntrada.lenght>0 && termino != '('){
-                                    termino = listaEntrada.pop();
+                        if (termino === ')') {
+                            if(pila.lenght > 0){
+                                termino = pila.pop();
+                                while (pila.lenght>0 && termino != '('){
+                                    termino = pila.pop();
                                 }
                             }
                         }
