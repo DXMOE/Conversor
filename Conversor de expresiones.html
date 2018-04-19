@@ -6,67 +6,90 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Conversor Infijo a Posfijo</title>
+        <title>Convertidor de Infija a Postfija Archivo</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <style>
-            body{
-                background: white;
-            }
-
-            .section {
-                background: transparent;
-                color: yellow;
-                border-radius: 1em;
-                padding: 1em;
-                position: absolute;
-                top: 100%;
-                left: 50%;
-                margin-right: -50%;
-                transform: translate(-50%, -50%) }
-            </style>
-            <script lang="">
+    </head>
+    <body>
+        
+        <script lang="">
                 function Convertir() {
                     var expresion = document.getElementById('expresion');
-                    var listaEntrada = expresion.value.toString().split(' ').reverse();
-                    var pila = new Array();
+                    var listaEntrada = expresion.value.toString().split(' ');
+                    var pila = [];
                     var listaSalida = '';
-                    var contador = 0;
+                    
+             
+                    
 
                     var error = false;
                     while (!error && listaEntrada.length > 0) {
-                        var termino = listaEntrada.pop();
-                        // Caso cuando el termino es NÚMERO
+                        var termino = listaEntrada.shift();
+                        // Caso cuando el termino es NÃšMERO
                         var numero = parseFloat(termino);
                         if (!isNaN(numero)) {
                             listaSalida += numero + ' ';
                         }
-                        // Caso cuando el termino es una variable
+                        // Caso cuando el termino es una VARIABLE
                         if (esVariable(termino)) {
                             listaSalida += termino + ' ';
                         }
-
-                         // Caso cuando el termino es un parentesis izquierdo
+                        // Caso cuando es un parentesis izquierdo
                         if (termino === '(') {
                             pila.push(termino);
                         }
-                        // Caso cuando el termino es un parentesis derecho
-                        if (termino === ')') {
-                            if(pila.lenght > 0){
-                                termino = pila.pop();
-                                while (pila.lenght>0 && termino != '('){
-                                    termino = listaSalida.push();
+                        
+                         if (termino === ')') {
+                        //extraer el ultimo elemento de un arreglo
+                                while (pila.lenght>0 && pila.lenght -1 != '('){
+                                    pila.pop();
+                                listaSalida += termino + ' ';
+                                
+                                
+  
                                 }
+             
+                
+                if (pila.find(encontrar)) {
+
+    pila.pop();
+
+} else if (pila != '(') {
+
+    error = true;
+
+} else {
+
+    delete termino();
+}
+            }
+                            
+               // Caso cuando el termino es un operador
+                                            if (esOperador(termino)) {
+                            listaSalida += termino + ' ';
+                        
+
+                            
+                            while (pila.length > 0 && cima.length > -1) {
+                                
                             }
                         }
-                        // Caso cuando el termino es un operador
-                        if (esOperador(termino)) {
-                            listaSalida += termino + ' ';
-                        }
                     }
+                    
+                    
                     console.log(listaSalida);
-                }
+                }             
+                            
+                    
+                    
+             
+                
+
+                function encontrar(elemento) {
+                    
+	return elemento === '(' ;
+}
+             
 
                 function esVariable(termino) {
                     var patt = new RegExp("[a-z]{1}");
@@ -76,22 +99,29 @@ and open the template in the editor.
                 function esOperador(termino) {
                     switch (termino) {
                         case '+':
-                        case '*':  
+                        case '*':
                         case '-':
-                        case '/':    
+                        case '/':
                         case '^':
                             return true;
+
                         default:
                             return false;
                     }
                 }
+           
+
 
             </script>
-        </head>
-        <body>
-            <input type="text" id="expresion"/>
+        
+<center><h1>Convertidor de Infija a Postfija</h1></center>
+
+    <center><input type="text" id="expresion"/></center>
+    <br>    
         <button onclick="Convertir()">Convertir</button>
+         
 
         <p class="section" id="etiqueta"></p>
+
     </body>
 </html>
