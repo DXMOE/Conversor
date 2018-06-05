@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Conversor Infijo a Posfijo</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -36,19 +36,21 @@ and open the template in the editor.
                     var error = false;
                     while (!error && listaEntrada.length > 0) {
                         var termino = listaEntrada.pop();
-                        // Caso cuando el termino es NÃšMERO
+                        // Caso cuando el termino es NÚMERO
                         var numero = parseFloat(termino);
                         if (!isNaN(numero)) {
                             listaSalida += numero + ' ';
                         }
-                        // Caso cuando el termino es una VARIABLE
+                        // Caso cuando el termino es una variable
                         if (esVariable(termino)) {
                             listaSalida += termino + ' ';
                         }
-                        // Caso cuando el termino es una VARIABLE
+
+                         // Caso cuando el termino es un parentesis izquierdo
                         if (termino === '(') {
                             pila.push(termino);
                         }
+                        // Caso cuando el termino es un parentesis derecho
 
                         if (termino === ')') {
                             while (pila.length > 0  && pila[pila.length-1] !== '(' ) {
@@ -77,16 +79,69 @@ and open the template in the editor.
                         }
                     }
 
+
                      while(pila.length > 0){
                         var tpila = pila.pop();
                         pila.push();
                         listaSalida += tpila + ' ';
-
                     }
                     console.log(listaSalida);
 
-                    
+                    var expression = listaSalida;
+var postfix = expression.split(" ");
+var postfixPila = [];
+
+postfix.forEach( function(current) {
+    if ( isOperator(current) ) {
+        postfixPila.push( 
+            compute( postfixPila.pop(), 
+                simboloAoperador(current), 
+                postfixPila.pop() 
+            )
+        );
+    }
+    else {
+        postfixPila.push(current);
+    }   
+});
+
+function isOperator(toCheck) {
+    switch (toCheck) {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '^':
+            return true;
+        default:
+            return false;
+    }
+}
+
+function compute(a, operator, b) {
+    return operator(a,b); 
+}
+
+function simboloAoperador(simbolo) {
+    switch (simbolo) {
+        case '+': return suma;
+        case '-': return resta;
+        case '*': return multi;
+        case '/': return divi;
+        case '^': return expo;
+    }
+}
+function suma(a,b) { return a + b; } 
+function resta(a,b) { return a - b; }
+function multi(a,b) { return a * b; }
+function divi(a,b) { return a / b; }
+function expo(a,b) { return a ^ b; }
+
+console.log(postfixPila[0])
+
                 }
+
+
 
                 function esVariable(termino) {
                     var patt = new RegExp("[a-z]{1}");
@@ -96,12 +151,11 @@ and open the template in the editor.
                 function esOperador(termino) {
                     switch (termino) {
                         case '+':
+                        case '-':  
                         case '*':
-                        case '-':
-                        case '/':
+                        case '/':    
                         case '^':
                             return true;
-
                         default:
                             return false;
                     }
