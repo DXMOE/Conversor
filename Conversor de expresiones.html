@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Conversor Infijo a Posfijo</title>
+        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -32,40 +32,58 @@ and open the template in the editor.
                     var listaEntrada = expresion.value.toString().split(' ').reverse();
                     var pila = new Array();
                     var listaSalida = '';
-                    var contador = 0;
 
                     var error = false;
                     while (!error && listaEntrada.length > 0) {
                         var termino = listaEntrada.pop();
-                        // Caso cuando el termino es NÚMERO
+                        // Caso cuando el termino es NÃšMERO
                         var numero = parseFloat(termino);
                         if (!isNaN(numero)) {
                             listaSalida += numero + ' ';
                         }
-                        // Caso cuando el termino es una variable
+                        // Caso cuando el termino es una VARIABLE
                         if (esVariable(termino)) {
                             listaSalida += termino + ' ';
                         }
-
-                         // Caso cuando el termino es un parentesis izquierdo
+                        // Caso cuando el termino es una VARIABLE
                         if (termino === '(') {
                             pila.push(termino);
                         }
-                        // Caso cuando el termino es un parentesis derecho
+
                         if (termino === ')') {
-                            if(pila.lenght > 0){
-                                termino = pila.pop();
-                                while (pila.lenght>0 && termino != '('){
-                                    termino = listaSalida.push();
-                                }
+                            while (pila.length > 0  && pila[pila.length-1] !== '(' ) {
+                                var opila = pila.pop(pila[pila.length-1]);
+                                pila.pop(pila[pila.length-1]);
+                                listaSalida += opila + ' ';
                             }
+                                if (pila[pila.length-1] === '(') {
+                                    pila.pop(pila[pila.length-1]);
+                                } else {
+                                    !error;
+                                }
+                                termino = [];                                
+                            
+
                         }
-                        // Caso cuando el termino es un operador
+
                         if (esOperador(termino)) {
-                            listaSalida += termino + ' ';
+                            while (pila.length > 0 && esOperador(pila[pila.length-1]) >= esOperador(termino)){
+                                    var ppila = pila.pop(pila[pila.length-1]);
+                                    pila.pop(pila[pila.length-1]);
+                                    listaSalida += ppila + ' ';
+                            }
+                            pila.push(termino);
+
                         }
                     }
+                     while(pila.length > 0){
+                        var tpila = pila.pop();
+                        pila.push();
+                        listaSalida += tpila + ' ';
+                    }
                     console.log(listaSalida);
+
+                    
                 }
 
                 function esVariable(termino) {
@@ -76,11 +94,12 @@ and open the template in the editor.
                 function esOperador(termino) {
                     switch (termino) {
                         case '+':
-                        case '*':  
+                        case '*':
                         case '-':
-                        case '/':    
+                        case '/':
                         case '^':
                             return true;
+
                         default:
                             return false;
                     }
