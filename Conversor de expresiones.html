@@ -65,6 +65,17 @@ and open the template in the editor.
                             
 
                         }
+
+                        if (esOperador(termino)) {
+                            while (pila.length > 0 && esOperador(pila[pila.length-1]) >= esOperador(termino)){
+                                    var ppila = pila.pop(pila[pila.length-1]);
+                                    pila.pop(pila[pila.length-1]);
+                                    listaSalida += ppila + ' ';
+                            }
+                            pila.push(termino);
+
+                        }
+                    }
                     }
                     console.log(listaSalida);
                 }
