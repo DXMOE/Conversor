@@ -78,8 +78,6 @@ and open the template in the editor.
 
                         }
                     }
-
-
                      while(pila.length > 0){
                         var tpila = pila.pop();
                         pila.push();
@@ -121,7 +119,6 @@ function isOperator(toCheck) {
 function compute(a, operator, b) {
     return operator(a,b); 
 }
-
 function simboloAoperador(simbolo) {
     switch (simbolo) {
         case '+': return suma;
@@ -138,7 +135,6 @@ function divi(a,b) { return a / b; }
 function expo(a,b) { return a ^ b; }
 
 console.log(postfixPila[0])
-
                 }
 
 
