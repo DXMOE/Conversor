@@ -76,16 +76,30 @@ and open the template in the editor.
 
                         }
                     }
-
                      while(pila.length > 0){
                         var tpila = pila.pop();
                         pila.push();
                         listaSalida += tpila + ' ';
-
                     }
                     console.log(listaSalida);
 
-                    
+                    var expression = listaSalida;
+var postfix = expression.split(" ");
+var postfixPila = [];
+
+postfix.forEach( function(current) {
+    if ( isOperator(current) ) {
+        postfixPila.push( 
+            compute( postfixPila.pop(), 
+                simboloAoperador(current), 
+                postfixPila.pop() 
+            )
+        );
+    }
+    else {
+        postfixPila.push(current);
+    }   
+});
                 }
 
                 function esVariable(termino) {
